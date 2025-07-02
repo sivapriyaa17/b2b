@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
-    "start": "node index.js",
+    "start": "ts-node src/index.ts",
     "dev": "ts-node src/index.ts",
     "migrate": "node -r ts-node/register ./node_modules/knex/bin/cli.js migrate:latest"
   },
@@ -16,7 +16,8 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "knex": "^2.5.1",
-    "pg": "^8.11.1"
+    "pg": "^8.11.1",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
