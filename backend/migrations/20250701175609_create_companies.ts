@@ -1,24 +1,20 @@
-import { Knex } from "knex";
 
+  import { Knex } from 'knex';
 
+export async function up(knex: Knex): Promise<void> {
+  return knex.schema.createTable('companies', (table: Knex.TableBuilder) => {
+    table.increments('id').primary();
+    table.string('name').notNullable();
+    table.string('industry').notNullable();
+    table.string('services').notNullable();
+    table.string('location').notNullable();
+    table.string('email').notNullable().unique();
+    table.string('password').notNullable();
+    table.string('logo_url');
+    table.timestamps(true, true);
+  });
+}
 
-
-
-
-
-
-export async function up(knex) {
-    return knex.schema.createTable('companies', (table) => {
-      table.increments('id').primary();
-      table.string('name').notNullable();
-      table.string('industry').notNullable();
-      table.string('services').notNullable();
-      table.string('logo').nullable(); // If storing logo URL or filename
-      table.timestamps(true, true); // created_at and updated_at
-    });
-  }
-  
-  export async function down(knex) {
-    return knex.schema.dropTable('companies');
-  }
-  
+export async function down(knex: Knex): Promise<void> {
+  return knex.schema.dropTableIfExists('companies');
+}
