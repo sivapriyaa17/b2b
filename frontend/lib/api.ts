@@ -1,6 +1,6 @@
 import axios from 'axios';
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,});
+  baseURL: process.env.NEXT_PUBLIC_API_URL || 'https://b2b-044s.onrender.com',});
 
 export default api;
 
