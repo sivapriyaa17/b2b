@@ -30,7 +30,7 @@ router.get('/search', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
-// Get company by ID
+
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
 
@@ -49,9 +49,10 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { name, industry, services, logo_url } = req.body;
+  const { name, industry, services, location, email, password, logo_url } = req.body;
 
-  if (!name || !industry || !services) {
+  
+  if (!name || !industry || !services || !location || !email || !password) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -61,7 +62,12 @@ router.post('/', async (req, res) => {
         name,
         industry,
         services,
-        logo_url
+        location,
+        email,
+        password,
+        logo_url,
+        created_at: new Date(),
+        updated_at: new Date()
       })
       .returning('*');
 
@@ -72,6 +78,4 @@ router.post('/', async (req, res) => {
   }
 });
 
-
 export default router;
-
