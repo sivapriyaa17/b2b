@@ -20,7 +20,7 @@ export default function NewTender() {
   const onSubmit = async (data: Form) => {
     setLoading(true);
     try {
-      await api.post('/tenders/new', data);
+      await api.post('/tenders', data);
       alert('Tender created successfully!');
       reset(); 
       router.push('/tenders');
