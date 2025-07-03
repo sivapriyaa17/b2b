@@ -48,5 +48,33 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  const { name, industry, services, location, email, password, logo_url } = req.body;
+
+  if (!name || !industry || !services || !location || !email || !password) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  try {
+    const [newCompany] = await db('companies')
+      .insert({
+        name,
+        industry,
+        services,
+        location,
+        email,
+        password,
+        logo_url
+      })
+      .returning('*');
+
+    res.status(201).json(newCompany);
+  } catch (err) {
+    console.error('Error creating company:', err);
+    res.status(500).json({ error: 'Failed to create company' });
+  }
+});
+
+
 export default router;
 
