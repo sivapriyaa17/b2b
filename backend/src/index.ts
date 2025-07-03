@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
 app.use(cors({
-    origin: ['http://localhost:3000','https://b2b-beta-weld.vercel.app','https://b2b-ixn4jizzx-sivapriyaas-projects.vercel.app'],
+    origin: ['http://localhost:3000','https://b2b-beta-weld.vercel.app','https://b2b-jouz5kq28-sivapriyaas-projects.vercel.app'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   }));
