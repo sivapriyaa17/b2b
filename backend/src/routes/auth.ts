@@ -21,15 +21,26 @@ router.post('/register', async (req, res) => {
   });
   
 
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const user = await db('users').where({ email }).first();
-  if (!user || !(await bcrypt.compare(password, user.password_hash)))
-    return res.status(401).json({ error: 'Invalid credentials' });
-  const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!);
-  res.json({ token });
-});
-
+  router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    console.log('[LOGIN]', email, password); 
+  
+    const user = await db('users').where({ email }).first();
+    if (!user) {
+      console.log('[LOGIN] User not found');
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+  
+    const valid = await bcrypt.compare(password, user.password_hash);
+    if (!valid) {
+      console.log('[LOGIN] Password mismatch');
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+  
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!);
+    res.json({ token });
+  });
+  
 
   
 
