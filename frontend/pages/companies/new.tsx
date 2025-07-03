@@ -7,6 +7,10 @@ type Form = {
   industry: string;
   services: string;
   logoUrl: string;
+  location: string;
+  email: string;
+  password: string;
+
 };
 
 export default function NewCompany() {
@@ -25,12 +29,18 @@ export default function NewCompany() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h1>Create Company</h1>
-      <input {...register('name')} placeholder="Company Name" required />
-      <input {...register('industry')} placeholder="Industry" required />
-      <input {...register('services')} placeholder="Services/Products" required />
-      <input {...register('logoUrl')} placeholder="Logo URL (optional)" />
-      <button type="submit">Create</button>
-    </form>
+  <h1>Create Company</h1>
+
+  <input {...register('name')} placeholder="Company Name" required />
+  <input {...register('industry')} placeholder="Industry" required />
+  <input {...register('services')} placeholder="Services/Products" required />
+  <input {...register('location')} placeholder="Location" required />
+  <input {...register('email')} placeholder="Email" type="email" required />
+  <input {...register('password')} placeholder="Password" type="password" required />
+  <input {...register('logoUrl')} placeholder="Logo URL (optional)" />
+
+  <button type="submit">Create</button>
+</form>
+
   );
 }
