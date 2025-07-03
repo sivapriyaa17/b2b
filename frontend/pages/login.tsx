@@ -12,7 +12,7 @@ export default function Login() {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true); // Prevent hydration errors
+    setIsMounted(true); 
   }, []);
 
   const onSubmit = async (data: Form) => {

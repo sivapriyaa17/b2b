@@ -25,7 +25,8 @@ export default function Layout({children}:  Props) {
         <Link href="/">Home</Link> |{' '}
         <Link href="/companies">Companies</Link> |{' '}
         <Link href="/companies/new">Create Company</Link> |{' '}
-        <Link href="/tenders">Tenders</Link> |{' '}
+        <Link href="/tenders/new">Create Tenders</Link> |{' '}
+        <Link href="/register">Register</Link> |{' '}
         {loggedIn ? (
           <>
             <Link href="/dashboard">Dashboard</Link> |{' '}

@@ -9,6 +9,7 @@ type Form = {
   description: string;
   deadline: string;
   budget: number;
+  companyid: number;
 };
 
 export default function NewTender() {
@@ -21,7 +22,7 @@ export default function NewTender() {
     try {
       await api.post('/tenders', data);
       alert('Tender created successfully!');
-      reset(); // optional: clear form
+      reset(); 
       router.push('/tenders');
     } catch (err) {
       console.error('Tender creation failed:', err);
