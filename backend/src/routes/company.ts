@@ -49,9 +49,9 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const { name, industry, services, location, email, password, logo_url } = req.body;
+  const { name, industry, services, logo_url } = req.body;
 
-  if (!name || !industry || !services || !location || !email || !password) {
+  if (!name || !industry || !services) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -61,9 +61,6 @@ router.post('/', async (req, res) => {
         name,
         industry,
         services,
-        location,
-        email,
-        password,
         logo_url
       })
       .returning('*');
