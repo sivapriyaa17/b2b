@@ -20,8 +20,8 @@ export async function up(knex: any) {
       table.string('email').notNullable();
       table.string('password').notNullable();
       table.string('logo_url');
-      table.timestamp('created_at').defaultTo(knex.fn.now());
-      table.timestamp('updated_at').defaultTo(knex.fn.now());
+      table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable();
+      table.timestamp('updated_at').defaultTo(knex.fn.now()).notNullable();
     });
   }
 }
