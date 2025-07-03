@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
     table.text('description').notNullable();
     table.date('deadline').notNullable();
     table.decimal('budget', 10, 2).notNullable();
+    table.integer('company_id').references('id').inTable('companies').onDelete('CASCADE');
     table.timestamps(true, true); // created_at and updated_at
   });
 }

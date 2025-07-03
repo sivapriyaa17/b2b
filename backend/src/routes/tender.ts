@@ -1,11 +1,12 @@
-import { Router } from 'express';
+
+import express from 'express';
 import db from '../db';
-const router = Router();
+const router = express.Router();
 router.post('/', async (req, res) => {
     try {
-      const { title, description, deadline, budget } = req.body;
+      const { title, description, deadline, budget, companyid } = req.body;
   
-      if (!title || !description || !deadline || !budget) {
+      if (!title || !description || !deadline || !budget || companyid) {
         return res.status(400).json({ error: 'Missing required fields' });
       }
   
@@ -14,7 +15,8 @@ router.post('/', async (req, res) => {
         description,
         deadline,
         budget,
-      });
+        companyid,
+      }).returning('*');
   
       res.status(201).json({ message: 'Tender created successfully' });
     } catch (error) {
