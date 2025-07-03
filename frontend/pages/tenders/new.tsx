@@ -61,6 +61,13 @@ export default function NewTender() {
         placeholder="Budget"
         disabled={loading}
       />
+      <input 
+      type="number"
+      step="0.01"
+      {...register('companyid', { required: true, min: 0 })}
+        placeholder="companyid"
+        disabled={loading}
+      ></input>
       
       <button type="submit" disabled={loading}>
         {loading ? 'Creating...' : 'Create'}
