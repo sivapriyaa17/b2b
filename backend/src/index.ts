@@ -18,7 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors({
-    origin: ['http://localhost:3000', 'https://b2b-3rv2s1dip-sivapriyaas-projects.vercel.app', '/\.vercel\.app$/','https://b2b-2cc6djjis-sivapriyaas-projects.vercel.app'],
+    origin: ['http://localhost:3000', '/\.vercel\.app$/'],
     credentials: true,
   }));
   
