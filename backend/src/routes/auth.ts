@@ -8,7 +8,9 @@ const router = Router();
 
 router.post('/register', async (req, res) => {
     const { email, password, company_name } = req.body;
-  
+    console.log('Registering:', req.body);
+    res.send("Registered Successfully")
+    .status(200);
     if (!email || !password || !company_name) {
       return res.status(400).json({ message: 'Missing required fields' });
     }
