@@ -8,7 +8,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     api.get('/companies').then(res => {
-      const my = res.data.find((c: any) => true); // company based on token
+      const my = res.data.find((c: any) => true); 
       setCompany(my);
     }).catch(() => router.push('/login'));
   }, []);
