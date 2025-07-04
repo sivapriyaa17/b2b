@@ -34,29 +34,41 @@ router.post('/register', async (req, res) => {
     res.status(500).json({ error: 'Registration failed' });
   }
 });
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  console.log('[LOGIN]', email, password);
 
-
-  
-
-  router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    console.log('[LOGIN]', email, password); 
-  
+  try {
     const user = await db('companies').where({ email }).first();
     if (!user) {
       console.log('[LOGIN] User not found');
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-  
-    const valid = await bcrypt.compare(password, user.password_hash);
+
+    if (!user.password) {
+      console.error('[LOGIN] Password hash missing in DB!');
+      return res.status(500).json({ error: 'Server misconfiguration: no password hash found' });
+    }
+
+    const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
       console.log('[LOGIN] Password mismatch');
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-  
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!);
+
+    const token = jwt.sign({ companyId: user.id }, process.env.JWT_SECRET!);
     res.json({ token });
-  });
+
+  } catch (err) {
+    console.error('Login error:', err);
+    res.status(500).json({ error: 'Login failed' });
+  }
+});
+
+
+  
+
+  
   
 
   
