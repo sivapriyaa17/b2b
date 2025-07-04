@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
 
   try {
     const hash = await bcrypt.hash(password, 10);
-    const [company] = await db('companies').insert({ name: company_name }).returning('*');
+    const [company] = await db('companies').insert({ name: company_name,email }).returning('*');
     const [user] = await db('users').insert({ email, password_hash: hash, company_id: company.id }).returning('*');
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!);
     res.status(201).json({ token });
