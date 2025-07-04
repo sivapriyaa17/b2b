@@ -20,7 +20,7 @@ export default function Register() {
       const res = await api.post('/auth/register', data);
       localStorage.setItem('token', res.data.token);
       alert('✅ Registered successfully!');
-      router.push('/dashboard'); // Redirect after success
+      router.push('/dashboard'); 
     } catch (err: any) {
       console.error('❌ Backend Error:', err?.response?.data || err.message);
       alert(err?.response?.data?.message || 'Registration failed');
