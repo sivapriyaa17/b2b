@@ -7,24 +7,34 @@ const router = Router();
 
 
 router.post('/register', async (req, res) => {
-  const { email, password, company_name } = req.body;
-  console.log('Registering:', req.body);
+  const { name, industry, services, location, email, password } = req.body;
 
-  if (!email || !password || !company_name) {
+  if (!name || !industry || !services || !location || !email || !password) {
     return res.status(400).json({ message: 'Missing required fields' });
   }
 
   try {
-    const hash = await bcrypt.hash(password, 10);
-    const [company] = await db('companies').insert({ name: company_name,email }).returning('*');
-    const [user] = await db('users').insert({ email, password_hash: hash, company_id: company.id }).returning('*');
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!);
-    res.status(201).json({ token });
+    const password_hash = await bcrypt.hash(password, 10);
+
+    const [company] = await db('companies')
+      .insert({
+        name,
+        industry,
+        services,
+        location,
+        email,
+        password: password_hash,
+      })
+      .returning('*');
+
+    const token = jwt.sign({ companyId: company.id }, process.env.JWT_SECRET!);
+    res.json({ token });
   } catch (err) {
     console.error('Register error:', err);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: 'Registration failed' });
   }
 });
+
 
   
 
