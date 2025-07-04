@@ -42,7 +42,7 @@ router.post('/register', async (req, res) => {
     const { email, password } = req.body;
     console.log('[LOGIN]', email, password); 
   
-    const user = await db('users').where({ email }).first();
+    const user = await db('companies').where({ email }).first();
     if (!user) {
       console.log('[LOGIN] User not found');
       return res.status(401).json({ error: 'Invalid credentials' });
