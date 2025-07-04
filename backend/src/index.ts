@@ -42,10 +42,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
     res.status(500).json({ error: 'Something went wrong' });
   });
   
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.error('Unhandled error:', err);
-    res.status(500).json({ error: 'Something went wrong' });
-  });
+
   
   
   

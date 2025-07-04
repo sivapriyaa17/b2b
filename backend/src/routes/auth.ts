@@ -7,20 +7,25 @@ const router = Router();
 
 
 router.post('/register', async (req, res) => {
-    const { email, password, company_name } = req.body;
-    console.log('Registering:', req.body);
-    res.send("Registered Successfully")
-    .status(200);
-    if (!email || !password || !company_name) {
-      return res.status(400).json({ message: 'Missing required fields' });
-    }
+  const { email, password, company_name } = req.body;
+  console.log('Registering:', req.body);
+
+  if (!email || !password || !company_name) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
+  try {
     const hash = await bcrypt.hash(password, 10);
     const [company] = await db('companies').insert({ name: company_name }).returning('*');
     const [user] = await db('users').insert({ email, password_hash: hash, company_id: company.id }).returning('*');
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!);
-    res.json({ token });
-   
-  });
+    res.status(201).json({ token });
+  } catch (err) {
+    console.error('Register error:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
   
 
   router.post('/login', async (req, res) => {
