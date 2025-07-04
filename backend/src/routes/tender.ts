@@ -2,11 +2,11 @@
 import express from 'express';
 import db from '../db';
 const router = express.Router();
-router.post('/', async (req, res) => {
+router.post('/new', async (req, res) => {
     try {
       const { title, description, deadline, budget, companyid } = req.body;
   
-      if (!title || !description || !deadline || !budget || companyid) {
+      if (!title || !description || !deadline || !budget || !companyid) {
         return res.status(400).json({ error: 'Missing required fields' });
       }
   
